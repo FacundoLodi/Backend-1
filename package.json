@@ -1,0 +1,11 @@
+{
+  "name": "primer-entrega_facundo-lodi",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "description": "Primer entrega de la API para gestionar libros y carritos de compra",
+  "author": "Facundo Lodi",
+  "license": "ISC"
+}

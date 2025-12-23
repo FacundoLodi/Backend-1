@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1766321574800",
+    "title": "El Principito",
+    "description": "Libro clásico",
+    "code": "ElPrincipito",
+    "price": 12000,
+    "status": true,
+    "stock": 20,
+    "category": "Ficción"
+  },
+  {
+    "id": "1766321574802",
+    "title": "Metro 2033",
+    "description": "Una novela distópica sobre el futuro de la humanidad bajo tierra.",
+    "code": "METRO2033",
+    "price": 18000,
+    "status": true,
+    "stock": 15,
+    "category": "Ciencia ficción"
+  },
+  {
+    "id": "1766321763393",
+    "title": "Siega",
+    "description": "El primer libro de la Trilogía de Siega, sobre la muerte y el futuro.",
+    "code": "SIEGA01",
+    "price": 28000,
+    "status": true,
+    "stock": 20,
+    "category": "Fantasía"
+  },
+  {
+    "id": "1766321770422",
+    "title": "Nimbo",
+    "description": "El segundo libro de la Trilogía de Siega, con una nueva perspectiva sobre el control de la muerte.",
+    "code": "NIMBO02",
+    "price": 30000,
+    "status": true,
+    "stock": 18,
+    "category": "Fantasía"
+  },
+  {
+    "id": "1766321775383",
+    "title": "Trueno",
+    "description": "El tercer libro de la Trilogía de Siega, un desenlace épico y mortal.",
+    "code": "TRUENO03",
+    "price": 32000,
+    "status": true,
+    "stock": 10,
+    "category": "Fantasía"
+  }
+]
