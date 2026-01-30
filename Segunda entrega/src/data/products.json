@@ -1,0 +1,101 @@
+[
+  {
+    "id": "68146cda-64ab-4d52-b41f-a3a8a2753b37",
+    "title": "Siega",
+    "description": "Primer libro de la trilogía, en un mundo donde la muerte fue vencida y los segadores controlan la población.",
+    "code": "SIEGA01",
+    "price": 28000,
+    "stock": 12,
+    "category": "Fantasía",
+    "thumbnail": "/images/products/1768921568124.jpg",
+    "status": true
+  },
+  {
+    "id": "c61e78ec-a1c5-48ff-a61a-9e363078004b",
+    "title": "Nimbo",
+    "description": "Segundo libro de la trilogía. El Nimbo gobierna la humanidad mientras los segadores enfrentan nuevas reglas y conflictos.",
+    "code": "NIMBO02",
+    "price": 29000,
+    "stock": 8,
+    "category": "Fantasía",
+    "thumbnail": "/images/products/1768921723022.jpg",
+    "status": true
+  },
+  {
+    "id": "6d631b4e-928b-45f1-ace8-9753d477cfef",
+    "title": "Trueno",
+    "description": "Tercer y último libro de la trilogía. El destino de la humanidad y del Nimbo llega a su punto final.",
+    "code": "TRUENO03",
+    "price": 30000,
+    "stock": 10,
+    "category": "Fantasía",
+    "thumbnail": "/images/products/1768921756226.jpg",
+    "status": true
+  },
+  {
+    "id": "714f41e2-7a72-4643-a7e1-d6504d67e504",
+    "title": "1984",
+    "description": "Novela distópica que retrata una sociedad totalitaria donde el Estado controla todos los aspectos de la vida.",
+    "code": "1984",
+    "price": 12000,
+    "stock": 6,
+    "category": "Distopía",
+    "thumbnail": "/images/products/1768921816143.jpg",
+    "status": true
+  },
+  {
+    "id": "428cbead-bfe9-4b0e-849a-1876fec0aada",
+    "title": "Fahrenheit 451",
+    "description": "Relato distópico en el que los libros están prohibidos y los bomberos se encargan de quemarlos para evitar el pensamiento crítico.",
+    "code": "FAH451|",
+    "price": 11000,
+    "stock": 8,
+    "category": "Distopía",
+    "thumbnail": "/images/products/1769262360610.jpg",
+    "status": true
+  },
+  {
+    "id": "43d7b8bc-2d55-4c6d-bc20-71850d231852",
+    "title": "Rebelión en la granja",
+    "description": "Fábula política que narra la rebelión de los animales de una granja contra los humanos, mostrando cómo el poder puede corromper los ideales.",
+    "code": "REBELIONGRANJA",
+    "price": 9000,
+    "stock": 6,
+    "category": "Política",
+    "thumbnail": "/images/products/1769262399622.jpg",
+    "status": true
+  },
+  {
+    "id": "ec497f25-1797-4d21-8730-98f1cdd5f6d0",
+    "title": "El Principito",
+    "description": "Un aviador perdido en el desierto del Sahara conoce a un pequeño príncipe proveniente de otro planeta. A través de sus relatos y encuentros con personajes simbólicos, la historia reflexiona sobre la amistad, el amor, la soledad y el sentido de la vida.",
+    "code": "PRINCIPE01",
+    "price": 18000,
+    "stock": 15,
+    "category": "Fábula",
+    "thumbnail": "/images/products/1769599762040.jpg",
+    "status": true
+  },
+  {
+    "id": "ca542690-6f8f-4f08-9776-4be31b195ac4",
+    "title": "Almendra",
+    "description": "La historia de Yunjae, un chico que nació con una condición neurológica que le impide sentir emociones como el miedo o la ira. A través de su amistad con un joven problemático, la novela explora la empatía, el crecimiento personal y lo que significa ser humano.",
+    "code": "ALMENDRA01",
+    "price": 22000,
+    "stock": 12,
+    "category": "Drama",
+    "thumbnail": "/images/products/1769599906446.jpg",
+    "status": true
+  },
+  {
+    "id": "0d1fb335-13d3-42b3-acd0-950f02c33315",
+    "title": "El túnel",
+    "description": "Novela psicológica narrada por Juan Pablo Castel, un pintor obsesivo que relata desde la cárcel los hechos que lo llevaron a cometer un crimen. Una historia intensa sobre la soledad, la obsesión y la incomunicación.",
+    "code": "TUNEL01",
+    "price": 16500,
+    "stock": 10,
+    "category": "Literatura argentina",
+    "thumbnail": "/images/products/1769599934715.jpg",
+    "status": true
+  }
+]

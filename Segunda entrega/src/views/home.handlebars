@@ -1,0 +1,27 @@
+<h1 class="page-title">Lista de libros</h1>
+
+<ul class="product-list">
+  {{#each products}}
+    <li class="product-item">
+      {{#if thumbnail}}
+        <img src="{{thumbnail}}">
+      {{/if}}
+      <h3>{{title}}</h3>
+      <p>{{description}}</p>
+      <p><b>Categoría:</b> {{category}}</p>
+      <p class="product-price">$ {{price}}</p>
+      <button class="add-cart-btn" onclick="addToCart('{{id}}')">
+        Agregar al carrito
+      </button>
+    </li>
+  {{/each}}
+</ul>
+
+<script>
+  async function addToCart(productId) {
+    const res = await fetch(`/api/carts/add/${productId}`, { method: "POST" });
+    const data = await res.json();
+    if (!res.ok) alert(data.error);
+    else alert("Producto agregado");
+  }
+</script>

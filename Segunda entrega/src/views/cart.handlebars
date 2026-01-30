@@ -1,0 +1,83 @@
+<h1 class="cart-title">Carrito</h1>
+
+{{#if products.length}}
+<div class="cart-table">
+  <div class="cart-header">
+    <span>Producto</span>
+    <span>Precio</span>
+    <span>Cantidad</span>
+    <span>Subtotal</span>
+    <span>Stock</span>
+  </div>
+
+  {{#each products}}
+  <div class="cart-row">
+    <div class="cart-product">
+      <img src="{{thumbnail}}">
+      <span>{{title}}</span>
+    </div>
+
+    <span>$ {{price}}</span>
+
+    <div class="cart-qty">
+      <button onclick="updateQty('{{id}}', -1, {{quantity}})">-</button>
+      <span>{{quantity}}</span>
+      <button onclick="updateQty('{{id}}', 1, {{quantity}})">+</button>
+    </div>
+
+    <span>$ {{total}}</span>
+    <span>{{stock}}</span>
+
+    <button class="cart-remove" onclick="removeProduct('{{id}}')">
+      Eliminar
+    </button>
+  </div>
+  {{/each}}
+</div>
+
+<div class="cart-footer">
+  <div class="cart-total">Total a pagar: $ {{totalCart}}</div>
+  <button class="cart-finish" onclick="finishPurchase()">
+    Finalizar compra
+  </button>
+</div>
+{{else}}
+<p>El carrito está vacío</p>
+{{/if}}
+
+<script>
+  async function updateQty(productId, amount, currentQty) {
+    if (amount === -1 && currentQty <= 1) return;
+
+    const res = await fetch(`/api/carts/update/${productId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount })
+    });
+
+    const data = await res.json();
+    if (!res.ok) alert(data.error);
+    location.reload();
+  }
+
+  async function removeProduct(productId) {
+    if (!confirm("¿Seguro que querés eliminar este producto del carrito?")) return;
+    await fetch(`/api/carts/remove/${productId}`, { method: "DELETE" });
+    location.reload();
+  }
+
+  async function finishPurchase() {
+    const ok = confirm("¿Seguro que querés finalizar la compra?");
+    if (!ok) return;
+
+    const res = await fetch(`/api/carts/purchase`, { method: "POST" });
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.error);
+    } else {
+      alert("¡Compra realizada con éxito!");
+      location.reload();
+    }
+  }
+</script>

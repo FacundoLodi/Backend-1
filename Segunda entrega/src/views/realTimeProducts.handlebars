@@ -1,0 +1,146 @@
+<div class="realtime">
+  <h2 class="page-title">Libros control</h2>
+
+  <button id="openAddModal" class="add-book-btn">Agregar libro +</button>
+
+  <ul id="productList" class="product-grid"></ul>
+
+  <div id="productModal" class="modal hidden">
+    <div class="modal-content">
+      <h3 id="modalTitle">Agregar libro</h3>
+
+      <form id="productForm" enctype="multipart/form-data">
+        <input type="hidden" id="productId" />
+
+        <input id="title" name="title" placeholder="Título" required />
+        <input id="description" name="description" placeholder="Descripción" required />
+        <input id="code" name="code" placeholder="Código" required />
+        <input id="price" name="price" type="number" placeholder="Precio" required />
+        <input id="stock" name="stock" type="number" placeholder="Stock" required />
+        <input id="category" name="category" placeholder="Categoría" required />
+
+        <input type="file" id="thumbnailInput" name="thumbnail" accept="image/*" />
+
+        <button type="submit" class="btn-save">Guardar</button>
+        <button type="button" id="closeModal" class="cancel-btn">Cancelar</button>
+        <p id="formMessage"></p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+  const list = document.getElementById("productList");
+  const modal = document.getElementById("productModal");
+  const openBtn = document.getElementById("openAddModal");
+  const closeBtn = document.getElementById("closeModal");
+  const form = document.getElementById("productForm");
+  const modalTitle = document.getElementById("modalTitle");
+  const formMessage = document.getElementById("formMessage");
+  const productId = document.getElementById("productId");
+  const thumbnailInput = document.getElementById("thumbnailInput");
+
+  function renderProducts(products) {
+    list.innerHTML = "";
+    products.forEach(p => {
+      list.innerHTML += `
+        <li class="product-card">
+          ${p.thumbnail ? `<img src="${p.thumbnail}" alt="${p.title}">` : ""}
+          <h3>${p.title}</h3>
+          <p>${p.description}</p>
+          <p><b>Precio:</b> $${p.price}</p>
+          <p><b>Stock:</b> ${p.stock}</p>
+
+          <div class="card-actions">
+            <button class="edit-btn" onclick='openEdit(${JSON.stringify(p).replace(/'/g, "&apos;")})'>
+              Editar
+            </button>
+            <button class="delete-btn" onclick="deleteProduct('${p.id}')">
+              Eliminar
+            </button>
+          </div>
+        </li>
+      `;
+    });
+  }
+
+  socket.on("updateProducts", products => {
+  renderProducts(products);
+
+  modal.classList.add("hidden");
+  form.reset();
+  formMessage.textContent = "";
+});
+
+  openBtn.onclick = () => {
+  modal.classList.remove("hidden");
+  modalTitle.textContent = "Agregar libro";
+  form.reset();
+  productId.value = "";
+  thumbnailInput.style.display = "block";
+  formMessage.textContent = "";
+};
+
+  closeBtn.onclick = () => {
+  modal.classList.add("hidden");
+  formMessage.textContent = "";
+};
+
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    formMessage.textContent = "Guardando...";
+
+    try {
+      let res;
+
+      if (productId.value) {
+        const data = {
+          title: title.value,
+          description: description.value,
+          code: code.value,
+          price: price.value,
+          stock: stock.value,
+          category: category.value
+        };
+
+        res = await fetch(`/api/products/${productId.value}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+      } else {
+        const formData = new FormData(form);
+        res = await fetch("/api/products", { method: "POST", body: formData });
+      }
+
+      if (!res.ok) throw new Error();
+      modal.classList.add("hidden");
+      form.reset();
+    } catch {
+      formMessage.textContent = "Error al guardar";
+    }
+  });
+
+  window.openEdit = product => {
+    modal.classList.remove("hidden");
+    modalTitle.textContent = "Editar libro";
+
+    productId.value = product.id;
+    title.value = product.title;
+    description.value = product.description;
+    code.value = product.code;
+    price.value = product.price;
+    stock.value = product.stock;
+    category.value = product.category;
+
+    thumbnailInput.style.display = "none";
+  };
+
+  window.deleteProduct = async id => {
+    if (!confirm("¿Seguro que querés eliminar este libro?")) return;
+    await fetch(`/api/products/${id}`, { method: "DELETE" });
+  };
+</script>
