@@ -1,0 +1,23 @@
+{
+  "name": "entrega-2-facundo-lodi",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "API de productos y carritos con Express, Handlebars y WebSockets",
+  "author": "Facundo Lodi",
+  "license": "ISC",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^4.22.1",
+    "express-handlebars": "^8.0.4",
+    "express-session": "^1.19.0",
+    "mongoose": "^9.1.6",
+    "mongoose-paginate-v2": "^1.9.1",
+    "multer": "^2.0.2",
+    "socket.io": "^4.8.3",
+    "uuid": "^13.0.0"
+  }
+}

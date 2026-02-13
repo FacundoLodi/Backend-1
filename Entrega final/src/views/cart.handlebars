@@ -1,0 +1,110 @@
+<h1 class="cart-title">Carrito</h1>
+
+{{#if products.length}}
+<div class="cart-table">
+  <div class="cart-header">
+    <span>Producto</span>
+    <span>Precio</span>
+    <span>Cantidad</span>
+    <span>Subtotal</span>
+    <span>Stock</span>
+    <span>Acciones</span>
+  </div>
+
+  {{#each products}}
+  <div class="cart-row">
+    <div class="cart-product">
+      <img src="{{thumbnail}}" alt="{{title}}" width="60">
+      <span>{{title}}</span>
+    </div>
+
+    <span>$ {{price}}</span>
+
+    <div class="cart-qty">
+      <button onclick="updateQty('{{_id}}', -1, {{quantity}})">-</button>
+      <span>{{quantity}}</span>
+      <button onclick="updateQty('{{_id}}', 1, {{quantity}})">+</button>
+    </div>
+
+    <span>$ {{total}}</span>
+    <span>{{stock}}</span>
+
+    <button class="cart-remove" onclick="removeProduct('{{_id}}')">
+      Eliminar
+    </button>
+  </div>
+  {{/each}}
+</div>
+
+<div class="cart-footer">
+  <div class="cart-total">
+    Total a pagar: <strong>$ {{totalCart}}</strong>
+  </div>
+  <button class="cart-finish" onclick="finishPurchase()">
+    Finalizar compra
+  </button>
+</div>
+
+{{else}}
+<p>El carrito está vacío</p>
+{{/if}}
+
+<script>
+  const cartId = "{{cartId}}";
+
+  async function updateQty(productId, amount, currentQty) {
+    if (amount === -1 && currentQty <= 1) return;
+
+    const newQty = currentQty + amount;
+
+    const res = await fetch(`/api/carts/${cartId}/products/${productId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ quantity: newQty })
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      alert(data.error || "Error al actualizar cantidad");
+      return;
+    }
+
+    location.reload();
+  }
+
+  async function removeProduct(productId) {
+    const ok = confirm("¿Seguro que querés eliminar este producto del carrito?");
+    if (!ok) return;
+
+    const res = await fetch(`/api/carts/${cartId}/products/${productId}`, {
+      method: "DELETE"
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      alert(data.error || "Error al eliminar producto");
+      return;
+    }
+
+    location.reload();
+  }
+
+  async function finishPurchase() {
+    const ok = confirm("¿Seguro que querés finalizar la compra?");
+    if (!ok) return;
+
+    const res = await fetch(`/api/carts/${cartId}/purchase`, {
+      method: "POST"
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.error || "Error al finalizar compra");
+      return;
+    }
+
+    alert("¡Compra realizada con éxito!");
+    location.reload();
+  }
+</script>

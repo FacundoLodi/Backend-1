@@ -1,0 +1,25 @@
+<div class="auth-container">
+  <h2>Iniciar Sesión</h2>
+
+  {{#if error}}
+    <div class="auth-error">{{error}}</div>
+  {{/if}}
+
+  {{#if success}}
+    <div class="auth-success">{{success}}</div>
+  {{/if}}
+
+  <form action="/api/sessions/login" method="POST" class="auth-form">
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>Contraseña</label>
+    <input type="password" name="password" required>
+
+    <button type="submit">Ingresar</button>
+  </form>
+
+  <div class="auth-switch">
+    ¿No tenés cuenta? <a href="/register">Registrate</a>
+  </div>
+</div>

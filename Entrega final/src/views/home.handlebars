@@ -1,0 +1,90 @@
+<h1 class="page-title">Lista de libros</h1>
+
+<form method="GET" action="/" class="filters-bar">
+  <input 
+    type="text" 
+    name="query" 
+    placeholder="Buscar por título..."
+    value="{{query}}"
+  >
+
+  <select name="category">
+    <option value="">Todas las categorías</option>
+    {{#each categories}}
+      <option value="{{this}}" {{#if (eq this ../category)}}selected{{/if}}>
+        {{this}}
+      </option>
+    {{/each}}
+  </select>
+
+  <select name="sort">
+    <option value="">Ordenar por precio</option>
+    <option value="asc" {{#if sortAsc}}selected{{/if}}>Menor a mayor</option>
+    <option value="desc" {{#if sortDesc}}selected{{/if}}>Mayor a menor</option>
+  </select>
+
+  <button type="submit">Aplicar filtros</button>
+</form>
+
+<ul class="product-list">
+  {{#each products}}
+    <li class="product-item">
+      {{#if thumbnail}}
+        <img src="{{thumbnail}}">
+      {{/if}}
+
+      <h3>{{title}}</h3>
+      <p>{{description}}</p>
+      <p><b>Categoría:</b> {{category}}</p>
+      <p class="product-price">$ {{price}}</p>
+
+      <div class="product-actions">
+        <button class="add-cart-btn" onclick="addToCart('{{_id}}')">
+          Agregar al carrito
+        </button>
+
+        <a href="/products/{{_id}}" class="details-btn">
+          Ver detalles
+        </a>
+      </div>
+    </li>
+  {{/each}}
+</ul>
+
+<div class="pagination">
+  {{#if hasPrevPage}}
+    <a href="/?page={{prevPage}}&sort={{sort}}&query={{query}}&category={{category}}" class="page-btn">
+      ← Anterior
+    </a>
+  {{/if}}
+
+  <span class="page-info">
+    Página {{page}} de {{totalPages}}
+  </span>
+
+  {{#if hasNextPage}}
+    <a href="/?page={{nextPage}}&sort={{sort}}&query={{query}}&category={{category}}" class="page-btn">
+      Siguiente →
+    </a>
+  {{/if}}
+</div>
+
+<script>
+  async function addToCart(productId) {
+    try {
+      const res = await fetch(`/api/carts/{{cartId}}/products/${productId}`, {
+        method: "POST"
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Error al agregar al carrito");
+      } else {
+        alert("Producto agregado al carrito");
+      }
+    } catch (err) {
+      alert("Error de conexión con el servidor");
+    }
+  }
+</script>
